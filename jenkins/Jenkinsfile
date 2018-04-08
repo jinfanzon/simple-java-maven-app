@@ -22,12 +22,14 @@ pipeline {
         }
         stage('Builder') {
             steps {
-                sh 'mvn package'
-            }
-        }
-        stage('Artifact') {
-            steps {
-                sh 'mvn install'
+                parallel(
+                    a: {
+                        sh 'mvn package'
+                    },
+                    b: {
+                        sh 'mvn install'
+                    }
+                )
             }
         }
     }
