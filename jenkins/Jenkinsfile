@@ -20,9 +20,14 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Builder') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh 'mvn package'
+            }
+        }
+        stage('Artifact') {
+            steps {
+                sh 'mvn install'
             }
         }
     }
